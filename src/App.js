@@ -6,26 +6,29 @@ class App extends Component {
     this.state = {
       students: [
         {
-          Avatar:
+          city: '',
+          avatar:
             'https://storage.googleapis.com/hatchways-app.appspot.com/assessments/data/frontend/images/voluptasdictablanditiis.jpg',
-          Name: 'Ingaberg',
-          Company: 'Yadel',
-          Skill: 'Oracle',
-          Average: '91'
+          name: 'Ingaberg',
+          company: 'Yadel',
+          skill: 'Oracle',
+          average: '91'
         }
       ]
     };
   }
 
+  //setState and attach the profile to the top
   componentWillMount() {
     fetch('https://www.hatchways.io/api/assessment/students')
       .then(res => res.json())
       .then(data => {
-        console.log('this state: ', this.state.students); //it is an array
         console.log('data: ', data);
         data.students.map(student => {
-          // console.log('student: ', student);
+          console.log('student: ', student);
+          this.setState({ students: [...this.state.students, student] });
         });
+        console.log('this state: ', this.state.students); //it is an array
       });
   }
   render() {

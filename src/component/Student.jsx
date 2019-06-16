@@ -6,15 +6,16 @@ class Student extends Component {
   }
 
   render() {
-    console.log('this.props.student!!! ', this.props.student);
-    let { Avatar, Name, Company, Skill, Average } = this.props.student;
-    //seperate the username and content
+    let { avatar, name, company, skill, average } = this.props.student;
     return (
       <div className="message">
-        <li>Name: {Name}</li>
-        <li>Company: {Company}</li>
-        <li>Skill:{Skill}</li>
-        <li>Average: {Average}</li>
+        <li>
+          <img src={avatar} alt="no avatar" />
+          <div>Name: {name}</div>
+          <div>Company: {company}</div>
+          <div>Skill:{skill}</div>
+          <div>Average: {average}</div>
+        </li>
       </div>
     );
   }
