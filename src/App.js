@@ -1,26 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from 'react';
+import StudentsList from './component/StudentsList';
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      students: [
+        {
+          Avatar:
+            'https://storage.googleapis.com/hatchways-app.appspot.com/assessments/data/frontend/images/voluptasdictablanditiis.jpg',
+          Name: 'Ingaberg',
+          Company: 'Yadel',
+          Skill: 'Oracle',
+          Average: '91'
+        }
+      ]
+    };
+  }
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  componentWillMount() {
+    fetch('https://www.hatchways.io/api/assessment/students')
+      .then(res => res.json())
+      .then(data => {
+        console.log('this state: ', this.state.students); //it is an array
+        console.log('data: ', data);
+        data.students.map(student => {
+          // console.log('student: ', student);
+        });
+      });
+  }
+  render() {
+    return (
+      <div>
+        <StudentsList students={this.state.students} />
+      </div>
+    );
+  }
 }
 
 export default App;
