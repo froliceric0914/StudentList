@@ -31,7 +31,6 @@ class Student extends Component {
             <div style={{ marginRight: '1rem' }}>{firstName}</div>{' '}
             <div> {lastName}</div>
           </div>
-
           <div className="detail">Email: {email}</div>
           <div className="detail">Company: {company}</div>
           <div className="detail">Skill:{skill}</div>

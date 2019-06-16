@@ -8,8 +8,6 @@ class StudentsList extends Component {
 
   render() {
     const studentsList = this.props.students.map((student, index) => {
-      // console.log('this.props.students: ', index);
-
       return <Student student={student} key={index} />;
     });
 
