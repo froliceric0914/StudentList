@@ -6,15 +6,30 @@ class Student extends Component {
   }
 
   render() {
-    let { avatar, name, company, skill, average } = this.props.student;
+    let {
+      pic,
+      firstName,
+      lastName,
+      company,
+      skill,
+      grades
+    } = this.props.student;
+    //set the average to the same float
+    let gradeInc = grades.map(grade => {
+      return parseInt(grade);
+    });
+    console.log('grades', grades);
+    const average = gradeInc.reduce((a, b) => a + b) / gradeInc.length;
     return (
       <div className="message">
         <li>
-          <img src={avatar} alt="no avatar" />
-          <div>Name: {name}</div>
+          <img src={pic} alt="no avatar" />
+          <div>
+            {firstName} {lastName}
+          </div>
           <div>Company: {company}</div>
           <div>Skill:{skill}</div>
-          <div>Average: {average}</div>
+          <div>Average: {average} %</div>
         </li>
       </div>
     );
