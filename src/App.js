@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
-import StudentsList from './component/StudentsList';
+import { StudentsList, FilterName } from './component';
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      getIntialState: [],
+      initialStudents: [],
       students: []
     };
   }
 
   filterList = event => {
-    let updatedList = this.state.students;
+    let updatedList = this.state.initialStudents;
     updatedList = updatedList.filter(student => {
       return (
         student.firstName
@@ -23,46 +23,34 @@ class App extends Component {
     });
     this.setState({ students: updatedList });
   };
-  //need to clear the state after use the filter
 
   //setState and attach the profile to the top
-  getIntialState() {
-    fetch('https://www.hatchways.io/api/assessment/students')
-      .then(res => res.json())
-      .then(data => {
-        console.log('data: ', data);
-        data.students.map(student => {
-          // console.log('student: ', student);
-          this.setState({ students: [...this.state.students, student] });
-        });
-        // console.log('this state: ', this.state.students); //it is an array
-      });
-  }
+
   componentWillMount() {
-    fetch('https://www.hatchways.io/api/assessment/students')
-      .then(res => res.json())
-      .then(data => {
-        console.log('data: ', data);
-        data.students.map(student => {
-          // console.log('student: ', student);
-          this.setState({ students: [...this.state.students, student] });
+    let getIntialState = () => {
+      fetch('https://www.hatchways.io/api/assessment/students')
+        .then(res => res.json())
+        .then(data => {
+          data.students.map(student => {
+            // console.log('student: ', student);
+            this.setState({
+              initialStudents: [...this.state.initialStudents, student]
+            });
+          });
+          this.setState({
+            students: this.state.initialStudents
+          });
+          console.log('initalStudents: ', this.state.initialStudents); //it is an array
+          console.log('students: ', this.state.students);
         });
-        // console.log('this state: ', this.state.students); //it is an array
-      });
+    };
+    getIntialState();
   }
+
   render() {
     return (
       <div className="container-students">
-        <form>
-          <fieldset className="form-group">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Search"
-              onChange={this.filterList}
-            />
-          </fieldset>
-        </form>
+        <FilterName filterList={this.filterList} />
         <StudentsList students={this.state.students} />
       </div>
     );
