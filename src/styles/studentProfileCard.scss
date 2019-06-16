@@ -1,0 +1,36 @@
+.student-card {
+  width: 100%;
+  display: flex;
+  border: solid grey 1px;
+  padding: 1rem 0;
+  .student-avatar {
+    width: 25%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .avatar {
+      border: solid grey 1px;
+      border-radius: 50%;
+      width: 60%;
+      height: auto;
+      overflow: hidden;
+      margin: 1rem;
+    }
+  }
+  .student-details {
+    width: 60%;
+    .userName {
+      width: 100%;
+      font-size: 2rem;
+      font-weight: 600;
+      display: flex;
+      justify-content: flex-start;
+    }
+    .detail {
+      width: 100%;
+      color: grey;
+      padding-left: 1rem;
+    }
+  }
+}

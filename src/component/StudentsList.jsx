@@ -14,11 +14,7 @@ class StudentsList extends Component {
     });
 
     //seperate the username and content
-    return (
-      <div className="message">
-        <ul>{studentsList}</ul>
-      </div>
-    );
+    return <div className="student-list">{studentsList}</div>;
   }
 }
 

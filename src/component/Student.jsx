@@ -8,6 +8,7 @@ class Student extends Component {
   render() {
     let {
       pic,
+      email,
       firstName,
       lastName,
       company,
@@ -18,19 +19,24 @@ class Student extends Component {
     let gradeInc = grades.map(grade => {
       return parseInt(grade);
     });
-    console.log('grades', grades);
+
     const average = gradeInc.reduce((a, b) => a + b) / gradeInc.length;
     return (
-      <div className="message">
-        <li>
-          <img src={pic} alt="no avatar" />
-          <div>
-            {firstName} {lastName}
+      <div className="student-card">
+        <div className="student-avatar">
+          <img className="avatar" src={pic} alt="no avatar" />
+        </div>
+        <div className="student-details">
+          <div className="userName">
+            <div style={{ marginRight: '1rem' }}>{firstName}</div>{' '}
+            <div> {lastName}</div>
           </div>
-          <div>Company: {company}</div>
-          <div>Skill:{skill}</div>
-          <div>Average: {average} %</div>
-        </li>
+
+          <div className="detail">Email: {email}</div>
+          <div className="detail">Company: {company}</div>
+          <div className="detail">Skill:{skill}</div>
+          <div className="detail">Average: {average}%</div>
+        </div>
       </div>
     );
   }

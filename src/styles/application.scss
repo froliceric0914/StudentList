@@ -1,0 +1,23 @@
+@import 'studentProfileCard';
+//change the font-family
+//clean the margin&&padding
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+  margin: 0;
+  color: #244751;
+  background-color: #eee;
+  width: 100%;
+}
+.container-students {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: solid grey 1px;
+  border-radius: 5px;
+  width: 600px;
+  background-color: white;
+  .student-list {
+    width: 100%;
+  }
+  margin: 100px auto;
+}

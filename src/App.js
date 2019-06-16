@@ -33,7 +33,7 @@ class App extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="container-students">
         <StudentsList students={this.state.students} />
       </div>
     );
