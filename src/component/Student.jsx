@@ -27,6 +27,11 @@ class Student extends Component {
           <img className="avatar" src={pic} alt="no avatar" />
         </div>
         <div className="student-details">
+          <div>
+            <button onClick={this.props.toggleHidden}>showsomething</button>
+
+            {this.props.isHidden && <p>This is a tough challenege</p>}
+          </div>
           <div className="userName">
             <div style={{ marginRight: '1rem' }}>{firstName}</div>{' '}
             <div> {lastName}</div>

@@ -7,18 +7,16 @@ class FiltetName extends Component {
 
   render() {
     return (
-      <div>
+      <form className="search">
         <form>
-          <fieldset className="form-group">
-            <input
-              type="text"
-              className="form-control form-control-lg"
-              placeholder="Search"
-              onChange={this.props.filterList}
-            />
-          </fieldset>
+          <input
+            type="text"
+            className="filterName"
+            placeholder="Search by name"
+            onChange={this.props.filterList}
+          />
         </form>
-      </div>
+      </form>
     );
   }
 }

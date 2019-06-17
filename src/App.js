@@ -5,9 +5,16 @@ class App extends Component {
     super(props);
     this.state = {
       initialStudents: [],
-      students: []
+      students: [],
+      isHidden: false
     };
+    this.toggleHidden.bind(this);
   }
+
+  toggleHidden = e => {
+    e.preventDefault();
+    this.setState({ isHidden: !this.state.isHidden });
+  };
 
   filterList = event => {
     let updatedList = this.state.initialStudents;
@@ -40,8 +47,8 @@ class App extends Component {
           this.setState({
             students: this.state.initialStudents
           });
-          console.log('initalStudents: ', this.state.initialStudents); //it is an array
-          console.log('students: ', this.state.students);
+          // console.log('initalStudents: ', this.state.initialStudents); //it is an array
+          // console.log('students: ', this.state.students);
         });
     };
     getIntialState();
@@ -51,7 +58,11 @@ class App extends Component {
     return (
       <div className="container-students">
         <FilterName filterList={this.filterList} />
-        <StudentsList students={this.state.students} />
+        <StudentsList
+          students={this.state.students}
+          toggleHidden={this.toggleHidden}
+          isHidden={this.state.isHidden}
+        />
       </div>
     );
   }
