@@ -8,10 +8,10 @@ class StudentsList extends Component {
 
   render() {
     const studentsList = this.props.students.map((student, index) => {
-      console.log('studentlist:', student.isHidden);
       return (
         <Student
           toggleHidden={this.props.toggleHidden}
+          newTag={this.props.newTag}
           student={student}
           key={index}
           index={index}

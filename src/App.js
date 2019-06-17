@@ -7,23 +7,24 @@ class App extends Component {
       initialStudents: [],
       students: []
     };
-    // this.toggleHidden.bind(this);
   }
 
-  // changeValue = name => {
-  //   this.setState(prev => ({
-  //     item: prev.item.map(item =>
-  //       item.name === name ? { ...item, age: '10' } : item
-  //     )
-  //   }));
-  // };
-
+  // change the isHidden when the index matches
   toggleHidden = idx => {
     this.setState(states => ({
       students: states.students.map((student, index) =>
         index === idx ? { ...student, isHidden: !student.isHidden } : student
       )
     }));
+  };
+
+  newTag = (idx, tag) => {
+    this.setState(states => ({
+      students: states.students.map((student, index) =>
+        index === idx ? { ...student, newTag: tag } : student
+      )
+    }));
+    console.log('students.tag', this.state.students[idx]);
   };
 
   filterList = event => {
@@ -71,6 +72,7 @@ class App extends Component {
         <StudentsList
           students={this.state.students}
           toggleHidden={this.toggleHidden}
+          newTag={this.newTag}
         />
       </div>
     );

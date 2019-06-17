@@ -9,10 +9,20 @@ class Student extends Component {
 
   _handleClick = e => {
     e.preventDefault();
-    //call the function in the app, and pass the variable in the funciton
     this.props.toggleHidden(this.props.index);
-    // this.setState({ isHidden: !isHidden }); // pass the parameter to the funciton
   };
+
+  _handleSubmit = e => {
+    e.preventDefault();
+    alert('A name was submitted: ' + this.props.student.newTag);
+  };
+
+  _handleChange = e => {
+    const newTag = e.target.value;
+    console.log('input', e.target.value);
+    this.props.newTag(this.props.index, newTag);
+  };
+
   render() {
     let {
       pic,
@@ -22,14 +32,9 @@ class Student extends Component {
       company,
       skill,
       grades,
-      isHidden
+      isHidden,
+      newTag
     } = this.props.student;
-    //set the average to the same float
-    let gradeInc = grades.map(grade => {
-      return parseInt(grade);
-    });
-
-    console.log('isHidden from student: ', isHidden);
 
     const icon = isHidden ? (
       <FontAwesomeIcon className="icon-grade" icon={faMinus} />
@@ -37,10 +42,12 @@ class Student extends Component {
       <FontAwesomeIcon className="icon-grade" icon={faPlus} />
     );
 
+    let gradeInc = grades.map(grade => {
+      return parseInt(grade);
+    });
     const average = gradeInc.reduce((a, b) => a + b) / gradeInc.length;
 
     let showGrades = grades.map((grade, index) => {
-      // console.log('grades: ', grade);
       return (
         <div>
           <div
@@ -54,8 +61,6 @@ class Student extends Component {
       );
     });
 
-    // showGrades();
-    //change the icon of toggle down a
     return (
       <div className="student-card">
         <div className="student-avatar">
@@ -72,7 +77,21 @@ class Student extends Component {
           <div className="detail">Skill:{skill}</div>
           <div className="detail">Average: {average}%</div>
           <div style={{ marginTop: '1rem' }}>
-            {isHidden && <div className="detail">{showGrades}</div>}
+            {isHidden && (
+              <div className="detail">
+                {showGrades}
+                <div>{newTag}</div>
+                <form onSubmit={this._handleSubmit}>
+                  <input
+                    type="text"
+                    // name="newTag"
+                    value={newTag}
+                    onChange={this._handleChange}
+                  />
+                  <input type="submit" value="Add" />
+                </form>
+              </div>
+            )}
           </div>
         </div>
         <button className="btn-grade" onClick={this._handleClick}>
