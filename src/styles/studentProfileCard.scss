@@ -8,8 +8,10 @@
     display: flex;
     justify-content: center;
     align-items: center;
-
+    position: relative;
     .avatar {
+      position: absolute;
+      top: 0;
       border: solid grey 1px;
       border-radius: 50%;
       width: 60%;
@@ -19,7 +21,8 @@
     }
   }
   .student-details {
-    width: 60%;
+    width: 70%;
+
     .userName {
       margin: 0.5rem;
       width: 100%;
@@ -32,6 +35,17 @@
       width: 100%;
       color: grey;
       padding-left: 1rem;
+    }
+  }
+  .btn-grade {
+    border: none;
+    position: relative;
+    .icon-grade {
+      position: absolute;
+      color: grey;
+      font-size: 1.5rem;
+      top: 0;
+      right: 0;
     }
   }
 }

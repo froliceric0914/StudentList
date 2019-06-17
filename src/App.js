@@ -48,7 +48,7 @@ class App extends Component {
             students: this.state.initialStudents
           });
           // console.log('initalStudents: ', this.state.initialStudents); //it is an array
-          // console.log('students: ', this.state.students);
+          console.log('students: ', this.state.students);
         });
     };
     getIntialState();
