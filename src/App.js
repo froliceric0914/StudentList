@@ -5,15 +5,25 @@ class App extends Component {
     super(props);
     this.state = {
       initialStudents: [],
-      students: [],
-      isHidden: false
+      students: []
     };
-    this.toggleHidden.bind(this);
+    // this.toggleHidden.bind(this);
   }
 
-  toggleHidden = e => {
-    e.preventDefault();
-    this.setState({ isHidden: !this.state.isHidden });
+  // changeValue = name => {
+  //   this.setState(prev => ({
+  //     item: prev.item.map(item =>
+  //       item.name === name ? { ...item, age: '10' } : item
+  //     )
+  //   }));
+  // };
+
+  toggleHidden = idx => {
+    this.setState(states => ({
+      students: states.students.map((student, index) =>
+        index === idx ? { ...student, isHidden: !student.isHidden } : student
+      )
+    }));
   };
 
   filterList = event => {
@@ -32,7 +42,6 @@ class App extends Component {
   };
 
   //setState and attach the profile to the top
-
   componentWillMount() {
     let getIntialState = () => {
       fetch('https://www.hatchways.io/api/assessment/students')
@@ -40,6 +49,7 @@ class App extends Component {
         .then(data => {
           data.students.map(student => {
             // console.log('student: ', student);
+            student.isHidden = false;
             this.setState({
               initialStudents: [...this.state.initialStudents, student]
             });
@@ -61,7 +71,6 @@ class App extends Component {
         <StudentsList
           students={this.state.students}
           toggleHidden={this.toggleHidden}
-          isHidden={this.state.isHidden}
         />
       </div>
     );
