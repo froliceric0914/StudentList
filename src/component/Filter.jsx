@@ -19,7 +19,7 @@ class Filter extends Component {
             type="text"
             className="filter"
             placeholder="Search by tag"
-            onChange={this.props.filterList}
+            onChange={this.props.filterTag}
           />
         </form>
       </div>

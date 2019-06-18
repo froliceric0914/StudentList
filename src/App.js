@@ -29,17 +29,31 @@ class App extends Component {
     console.log('students.tag', this.state.students[idx]);
   };
 
-  filterList = event => {
+  filterList = e => {
     let updatedList = this.state.initialStudents;
     updatedList = updatedList.filter(student => {
       return (
-        student.firstName
-          .toLowerCase()
-          .search(event.target.value.toLowerCase()) !== -1 ||
-        student.lastName
-          .toLowerCase()
-          .search(event.target.value.toLowerCase()) !== -1
+        student.firstName.toLowerCase().search(e.target.value.toLowerCase()) !==
+          -1 ||
+        student.lastName.toLowerCase().search(e.target.value.toLowerCase()) !==
+          -1
       );
+    });
+    this.setState({ students: updatedList });
+  };
+
+  //did not return the target value
+  findTag = (tags, target) => {
+    console.log('tags', tags);
+    tags.filter(tag => {
+      return tag.toLowerCase().search(target.toLowerCase()) !== -1;
+    });
+  };
+
+  filterTag = e => {
+    let updatedList = this.state.initialStudents;
+    updatedList = updatedList.filter(student => {
+      return this.findTag(student.tags, e.target.value);
     });
     this.setState({ students: updatedList });
   };
@@ -73,7 +87,7 @@ class App extends Component {
   render() {
     return (
       <div className="container-students">
-        <Filter filterList={this.filterList} />
+        <Filter filterList={this.filterList} filterTag={this.filterTag} />
         <StudentsList
           students={this.state.students}
           toggleHidden={this.toggleHidden}
