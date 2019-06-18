@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StudentsList, FilterName } from './component';
+import { StudentsList, Filter } from './component';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -73,7 +73,7 @@ class App extends Component {
   render() {
     return (
       <div className="container-students">
-        <FilterName filterList={this.filterList} />
+        <Filter filterList={this.filterList} />
         <StudentsList
           students={this.state.students}
           toggleHidden={this.toggleHidden}

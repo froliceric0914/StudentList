@@ -1,4 +1,4 @@
-import FilterName from './FilterName';
+import Filter from './Filter';
 import StudentsList from './StudentsList';
 
-export { StudentsList, FilterName };
+export { StudentsList, Filter };

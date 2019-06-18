@@ -7,6 +7,7 @@ class Student extends Component {
     super(props);
   }
 
+  //make Tag as a component
   _handleClick = e => {
     e.preventDefault();
     this.props.toggleHidden(this.props.index);

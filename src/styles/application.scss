@@ -21,7 +21,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
   border: solid grey 1px;
   border-radius: 5px;
   width: 600px;
@@ -31,19 +31,18 @@ body {
   background-color: white;
   // position: relative;
   .search {
-    // position: absolute;
-    // top: 0;
-    height: 100%;
+    height: auto;
     width: 100%;
-    margin-top: 3.5rem;
+    margin: 0.5rem 1rem;
     padding: 0 0.5rem 0.5rem 0.5rem;
-    // padding: 25px 15px;
-    .filterName {
+
+    .filter {
       outline: none;
       width: 100%;
-      font-size: 1.3rem;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
       border: none;
-      // border-bottom: solid grey 1px;
+      border-bottom: solid grey 1px;
     }
   }
   .student-list {
