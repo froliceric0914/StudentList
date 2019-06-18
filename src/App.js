@@ -45,7 +45,9 @@ class App extends Component {
   //setState and attach the profile to the top
   componentWillMount() {
     let getIntialState = () => {
-      fetch('https://www.hatchways.io/api/assessment/students')
+      const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+      const url = 'https://www.hatchways.io/api/assessment/students';
+      fetch(proxyurl + url)
         .then(res => res.json())
         .then(data => {
           data.students.map(student => {
