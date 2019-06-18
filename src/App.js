@@ -18,10 +18,12 @@ class App extends Component {
     }));
   };
 
-  newTag = (idx, tag) => {
+  newTag = (idx, newTag) => {
     this.setState(states => ({
       students: states.students.map((student, index) =>
-        index === idx ? { ...student, newTag: tag } : student
+        index === idx
+          ? { ...student, tags: [...student.tags, newTag] }
+          : student
       )
     }));
     console.log('students.tag', this.state.students[idx]);
@@ -53,6 +55,7 @@ class App extends Component {
           data.students.map(student => {
             // console.log('student: ', student);
             student.isHidden = false;
+            student.tags = [];
             this.setState({
               initialStudents: [...this.state.initialStudents, student]
             });

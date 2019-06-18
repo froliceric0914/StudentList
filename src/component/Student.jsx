@@ -36,10 +36,10 @@ class Student extends Component {
       skill,
       grades,
       isHidden,
-      newTag
+      tags
     } = this.props.student;
 
-    const icon = isHidden ? (
+    let icon = isHidden ? (
       <FontAwesomeIcon className="icon-grade" icon={faMinus} />
     ) : (
       <FontAwesomeIcon className="icon-grade" icon={faPlus} />
@@ -48,7 +48,16 @@ class Student extends Component {
     let gradeInc = grades.map(grade => {
       return parseInt(grade);
     });
-    const average = gradeInc.reduce((a, b) => a + b) / gradeInc.length;
+    let average = gradeInc.reduce((a, b) => a + b) / gradeInc.length;
+
+    let thisTag = tags.map((tag, index) => {
+      console.log('tag', tag);
+      return (
+        <div className="newTag" key={index}>
+          {tag}
+        </div>
+      );
+    });
 
     let showGrades = grades.map((grade, index) => {
       return (
@@ -83,10 +92,11 @@ class Student extends Component {
             {isHidden && (
               <div className="detail">
                 {showGrades}
-                {newTag && <div className="newTag">{newTag}</div>}
+                {tags.length > 0 && thisTag}
                 <input
                   type="text"
                   className="input-newTag"
+                  placeholder="Add a tag"
                   onKeyPress={this._handleChange}
                 />
               </div>
