@@ -36,6 +36,22 @@
       color: grey;
       padding-left: 1rem;
     }
+    .newTag {
+      // box-sizing: content-box;
+      width: max-content;
+      min-width: 25%;
+      background-color: grey;
+      padding: 0.5rem;
+      color: black;
+      margin: 1rem 0;
+      border-radius: 5px;
+    }
+    .input-newTag {
+      border: none;
+      outline: none;
+      border-bottom: solid grey 1px;
+      font-size: 1rem;
+    }
   }
   .btn-grade {
     border: none;

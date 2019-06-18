@@ -12,15 +12,18 @@ class Student extends Component {
     this.props.toggleHidden(this.props.index);
   };
 
-  _handleSubmit = e => {
-    e.preventDefault();
-    alert('A name was submitted: ' + this.props.student.newTag);
-  };
+  // _handleSubmit = e => {
+  //   e.preventDefault();
+  //   alert('A name was submitted: ' + this.props.student.newTag);
+  // };
 
   _handleChange = e => {
-    const newTag = e.target.value;
-    console.log('input', e.target.value);
-    this.props.newTag(this.props.index, newTag);
+    if (e.key === 'Enter' && e.target.value !== '') {
+      const newTag = e.target.value;
+      // console.log('input', e.target.value);
+      this.props.newTag(this.props.index, newTag);
+      e.target.value = '';
+    }
   };
 
   render() {
@@ -80,16 +83,12 @@ class Student extends Component {
             {isHidden && (
               <div className="detail">
                 {showGrades}
-                <div>{newTag}</div>
-                <form onSubmit={this._handleSubmit}>
-                  <input
-                    type="text"
-                    // name="newTag"
-                    value={newTag}
-                    onChange={this._handleChange}
-                  />
-                  <input type="submit" value="Add" />
-                </form>
+                {newTag && <div className="newTag">{newTag}</div>}
+                <input
+                  type="text"
+                  className="input-newTag"
+                  onKeyPress={this._handleChange}
+                />
               </div>
             )}
           </div>
