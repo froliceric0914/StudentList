@@ -19,7 +19,7 @@ class StudentsList extends Component {
       );
     });
 
-    //seperate the username and content
+    //need to add a contion when there is no sudent after filter
     return <div className="student-list">{studentsList}</div>;
   }
 }
