@@ -1,11 +1,16 @@
 import React, { Component } from 'react';
 import { StudentsList, Filter } from './component';
+
+//could set a immutable const fetch
+//use componenetDidMount Method
+
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            initialStudents: [],
-            students: []
+            initialStudents: [], //original
+            students: [], //filtered
+            studentsWithTag: []
         };
     }
 
@@ -20,15 +25,37 @@ class App extends Component {
         }));
     };
 
+    //need to change the state of initial student
     newTag = (idx, newTag) => {
         this.setState(states => ({
             students: states.students.map((student, index) =>
                 index === idx
-                    ? { ...student, tags: [...student.tags, newTag] }
+                    ? {
+                          ...student,
+                          tags: [...student.tags, newTag]
+                      }
                     : student
             )
         }));
-        console.log('students.tag', this.state.students[idx]);
+
+        this.setState(states => ({
+            initialStudents: states.initialStudents.map((student, index) =>
+                index === idx
+                    ? {
+                          ...student,
+                          tags: [...student.tags, newTag]
+                      }
+                    : student
+            )
+        }));
+        // console.log('students.tag', this.state.initialStudents[idx]);
+        // this.setState({ initialStudents: this.state.students });
+
+        // let updatedList = this.state.initialStudents[idx];
+        // console.log('init.tag', updatedList);
+        // this.setState({ students: updatedList });
+
+        // this.setState({ students: this.state.initialStudents });
     };
 
     filterList = e => {
@@ -41,52 +68,65 @@ class App extends Component {
                 student.lastName.toLowerCase().search(targetValue) !== -1
             );
         });
+        //filter the initial and the update the student
         this.setState({ students: updatedList });
     };
 
-    //did not return the target value
-    findTag = (tags, target) => {
-        console.log('tags', tags);
-        tags.filter(tag => {
-            return tag.toLowerCase().search(target.toLowerCase()) !== -1;
-        });
-    };
-
+    //filter the studentList
     filterTag = e => {
-        let updatedList = this.state.initialStudents;
-        updatedList = updatedList.filter(student => {
-            return this.findTag(student.tags, e.target.value);
-        });
+        let targetValue = e.target.value;
+        let updatedList = this.state.students
+            .map(student => ({
+                tags: [...student.tags]
+            }))
+            .filter(student => {
+                console.log('student: ', student);
+                return this.findTag(student.tags, targetValue);
+            });
         this.setState({ students: updatedList });
     };
+
+    findTag = (tags, targetTag) => {
+        return (
+            tags.filter(tag => {
+                return tag.toLowerCase() === targetTag.toLowerCase();
+            }).length > 0
+        );
+    };
+    // filterTag = e => {
+    //     let updatedList = this.state.initialStudents;
+    //     updatedList = updatedList.filter(student => {
+    //         return this.findTag(student.tags, e.target.value);
+    //     });
+    //     this.setState({ students: updatedList });
+    // };
 
     //setState and attach the profile to the top
     componentWillMount() {
-        let getIntialState = () => {
-            const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-            const url = 'https://www.hatchways.io/api/assessment/students';
-            fetch(proxyurl + url)
-                .then(res => res.json())
-                .then(data => {
-                    data.students.map(student => {
-                        // console.log('student: ', student);
-                        student.isHidden = false;
-                        student.tags = [];
-                        this.setState({
-                            initialStudents: [
-                                ...this.state.initialStudents,
-                                student
-                            ]
-                        });
-                    });
+        const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+        const url = 'https://www.hatchways.io/api/assessment/students';
+        fetch(proxyurl + url)
+            .then(res => res.json())
+            .then(data => {
+                data.students.map(student => {
+                    // console.log('student: ', student);
+                    student.isHidden = false;
+                    student.tags = [];
                     this.setState({
-                        students: this.state.initialStudents
+                        initialStudents: [
+                            ...this.state.initialStudents,
+                            student
+                        ]
                     });
-                    // console.log('initalStudents: ', this.state.initialStudents); //it is an array
-                    console.log('students: ', this.state.students);
                 });
-        };
-        getIntialState();
+                //pass the initial state to student
+                //this.state.student is gonna be passed to child component
+                this.setState({
+                    students: this.state.initialStudents
+                });
+                console.log('initalStudents: ', this.state.initialStudents); //it is an array
+                // console.log('students: ', this.state.students);
+            });
     }
 
     render() {
