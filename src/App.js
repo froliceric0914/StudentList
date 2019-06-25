@@ -14,6 +14,33 @@ class App extends Component {
         };
     }
 
+    componentDidMount() {
+        const proxyurl = 'https://cors-anywhere.herokuapp.com/';
+        const url = 'https://www.hatchways.io/api/assessment/students';
+        fetch(proxyurl + url)
+            .then(res => res.json())
+            .then(data => {
+                data.students.map(student => {
+                    // console.log('student: ', student);
+                    student.isHidden = false;
+                    student.tags = [];
+                    this.setState({
+                        initialStudents: [
+                            ...this.state.initialStudents,
+                            student
+                        ]
+                    });
+                });
+                //pass the initial state to student
+                //this.state.student is gonna be passed to child component
+                this.setState({
+                    students: this.state.initialStudents
+                });
+                console.log('initalStudents: ', this.state.initialStudents); //it is an array
+                // console.log('students: ', this.state.students);
+            });
+    }
+
     // change the isHidden when the index matches
     toggleHidden = idx => {
         this.setState(states => ({
@@ -48,14 +75,8 @@ class App extends Component {
                     : student
             )
         }));
-        // console.log('students.tag', this.state.initialStudents[idx]);
-        // this.setState({ initialStudents: this.state.students });
-
-        // let updatedList = this.state.initialStudents[idx];
-        // console.log('init.tag', updatedList);
-        // this.setState({ students: updatedList });
-
-        // this.setState({ students: this.state.initialStudents });
+        // console.log('students: ', this.state.students[idx]);
+        // console.log('Int students: ', this.state.initialStudents[idx]);
     };
 
     filterList = e => {
@@ -63,71 +84,57 @@ class App extends Component {
         let targetValue = e.target.value.toLowerCase();
 
         updatedList = updatedList.filter(student => {
+            // console.log(
+            //     'search name: ',
+            //     student.firstName.toLowerCase().search(targetValue) >= 0
+            // );
             return (
-                student.firstName.toLowerCase().search(targetValue) !== -1 ||
-                student.lastName.toLowerCase().search(targetValue) !== -1
+                //如果有存在targetValue,这个student就会变成true，否则为false
+                student.firstName.toLowerCase().search(targetValue) >= 0 ||
+                student.lastName.toLowerCase().search(targetValue) >= 0
             );
         });
         //filter the initial and the update the student
         this.setState({ students: updatedList });
-    };
-
-    //filter the studentList
+    }; /* 要搞清的地方：
+1. initialStudent, 原代码
+2. return 和render的list
+3. 
+  
+  */
+    // filter the studentList
     filterTag = e => {
         let targetValue = e.target.value;
-        let updatedList = this.state.students
-            .map(student => ({
-                tags: [...student.tags]
-            }))
-            .filter(student => {
-                console.log('student: ', student);
-                return this.findTag(student.tags, targetValue);
-            });
+        // console.log('targetValue: ', targetValue);
+        let updatedList = this.state.initialStudents.filter(student => {
+            //problem: did not return to the right value
+            // console.log('student: ', student.tags);
+            console.log('findTag: ', this.findTag(student.tags, targetValue));
+            return this.findTag(student.tags, targetValue).length > 0;
+        });
+        console.log('updatedList: ', updatedList);
         this.setState({ students: updatedList });
     };
 
-    findTag = (tags, targetTag) => {
-        return (
-            tags.filter(tag => {
-                return tag.toLowerCase() === targetTag.toLowerCase();
-            }).length > 0
-        );
+    findTag = (tags, targetValue) => {
+        // console.log('tags', tags);
+        return tags
+            ? tags.filter(tag => {
+                  // console.log('tag in tags', tag);
+                  console.log('search', tag.toLowerCase().search(targetValue));
+                  // console.log(
+                  //     'tag.toLowerCase().search(targetValue)',
+                  //     tag.toLowerCase().search(targetValue)
+                  // );
+                  return tag.toLowerCase().search(targetValue) !== -1
+                      ? true
+                      : false;
+                  // return tag.toLowerCase().search(targetValue) !== -1;
+              })
+            : false;
     };
-    // filterTag = e => {
-    //     let updatedList = this.state.initialStudents;
-    //     updatedList = updatedList.filter(student => {
-    //         return this.findTag(student.tags, e.target.value);
-    //     });
-    //     this.setState({ students: updatedList });
-    // };
 
     //setState and attach the profile to the top
-    componentWillMount() {
-        const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-        const url = 'https://www.hatchways.io/api/assessment/students';
-        fetch(proxyurl + url)
-            .then(res => res.json())
-            .then(data => {
-                data.students.map(student => {
-                    // console.log('student: ', student);
-                    student.isHidden = false;
-                    student.tags = [];
-                    this.setState({
-                        initialStudents: [
-                            ...this.state.initialStudents,
-                            student
-                        ]
-                    });
-                });
-                //pass the initial state to student
-                //this.state.student is gonna be passed to child component
-                this.setState({
-                    students: this.state.initialStudents
-                });
-                console.log('initalStudents: ', this.state.initialStudents); //it is an array
-                // console.log('students: ', this.state.students);
-            });
-    }
 
     render() {
         return (
