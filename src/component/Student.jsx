@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCoffee, faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
+import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 class Student extends Component {
     constructor(props) {
@@ -12,11 +12,6 @@ class Student extends Component {
         e.preventDefault();
         this.props.toggleHidden(this.props.index);
     };
-
-    // _handleSubmit = e => {
-    //   e.preventDefault();
-    //   alert('A name was submitted: ' + this.props.student.newTag);
-    // };
 
     _handleChange = e => {
         if (e.key === 'Enter' && e.target.value !== '') {
@@ -46,13 +41,16 @@ class Student extends Component {
             <FontAwesomeIcon className="icon-grade" icon={faPlus} />
         );
 
-        let gradeInc = grades.map(grade => {
-            return parseInt(grade);
-        });
-        let average = gradeInc.reduce((a, b) => a + b) / gradeInc.length;
+        let averageGrade = grade => {
+            let gradeInc = grade.map(grade => {
+                return parseInt(grade);
+            });
+            return (gradeInc.reduce((a, b) => a + b) / gradeInc.length).toFixed(
+                2
+            );
+        };
 
         let thisTag = tags.map((tag, index) => {
-            // console.log('tag', tag);
             return (
                 <div className="newTag" key={index}>
                     {tag}
@@ -62,17 +60,9 @@ class Student extends Component {
 
         let showGrades = grades.map((grade, index) => {
             return (
-                <div>
-                    <div
-                        key={index}
-                        style={{
-                            display: 'flex',
-                            justifyContent: 'flex-start'
-                        }}
-                    >
-                        <div style={{ marginRight: '1rem' }}>Text {index}</div>
-                        <div> {grade}%</div>
-                    </div>
+                <div className="grade" key={index}>
+                    Test {index + 1}:
+                    <div style={{ marginLeft: '1.5rem' }}>{grade}%</div>
                 </div>
             );
         });
@@ -85,18 +75,21 @@ class Student extends Component {
 
                 <div className="student-details">
                     <div className="userName">
-                        <div style={{ marginRight: '1rem' }}>{firstName}</div>
-                        <div> {lastName}</div>
+                        {firstName} {lastName}
                     </div>
-                    <div className="detail">Email: {email}</div>
-                    <div className="detail">Company: {company}</div>
-                    <div className="detail">Skill:{skill}</div>
-                    <div className="detail">Average: {average}%</div>
-                    <div style={{ marginTop: '1rem' }}>
+                    <div className="list-detail">Email: {email}</div>
+                    <div className="list-detail">Company: {company}</div>
+                    <div className="list-detail">Skill: {skill}</div>
+                    <div className="list-detail">
+                        Average: {averageGrade(grades)}%
+                    </div>
+                    <div>
                         {isHidden && (
-                            <div className="detail">
-                                {showGrades}
-                                {tags.length > 0 && thisTag}
+                            <div className="list-detail">
+                                <div className="list-grades">{showGrades}</div>
+                                {tags.length > 0 && (
+                                    <div className="tag-list">{thisTag}</div>
+                                )}
                                 <input
                                     type="text"
                                     className="input-newTag"

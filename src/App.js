@@ -75,8 +75,6 @@ class App extends Component {
                     : student
             )
         }));
-        // console.log('students: ', this.state.students[idx]);
-        // console.log('Int students: ', this.state.initialStudents[idx]);
     };
 
     filterList = e => {
@@ -84,54 +82,31 @@ class App extends Component {
         let targetValue = e.target.value.toLowerCase();
 
         updatedList = updatedList.filter(student => {
-            // console.log(
-            //     'search name: ',
-            //     student.firstName.toLowerCase().search(targetValue) >= 0
-            // );
             return (
-                //如果有存在targetValue,这个student就会变成true，否则为false
-                student.firstName.toLowerCase().search(targetValue) >= 0 ||
-                student.lastName.toLowerCase().search(targetValue) >= 0
+                student.firstName.toLowerCase().search(targetValue) !== -1 ||
+                student.lastName.toLowerCase().search(targetValue) !== -1
             );
         });
         //filter the initial and the update the student
         this.setState({ students: updatedList });
-    }; /* 要搞清的地方：
-1. initialStudent, 原代码
-2. return 和render的list
-3. 
-  
-  */
-    // filter the studentList
+    };
+
     filterTag = e => {
         let targetValue = e.target.value;
-        // console.log('targetValue: ', targetValue);
         let updatedList = this.state.initialStudents.filter(student => {
-            //problem: did not return to the right value
-            // console.log('student: ', student.tags);
-            console.log('findTag: ', this.findTag(student.tags, targetValue));
-            return this.findTag(student.tags, targetValue).length > 0;
+            return this.findTag(student.tags, targetValue);
         });
-        console.log('updatedList: ', updatedList);
         this.setState({ students: updatedList });
     };
 
     findTag = (tags, targetValue) => {
-        // console.log('tags', tags);
-        return tags
-            ? tags.filter(tag => {
-                  // console.log('tag in tags', tag);
-                  console.log('search', tag.toLowerCase().search(targetValue));
-                  // console.log(
-                  //     'tag.toLowerCase().search(targetValue)',
-                  //     tag.toLowerCase().search(targetValue)
-                  // );
-                  return tag.toLowerCase().search(targetValue) !== -1
-                      ? true
-                      : false;
-                  // return tag.toLowerCase().search(targetValue) !== -1;
-              })
-            : false;
+        return (
+            tags.filter(tag => {
+                return tag.toLowerCase().search(targetValue) !== -1;
+
+                // return tag.toLowerCase().search(targetValue) !== -1;
+            }).length > 0
+        );
     };
 
     //setState and attach the profile to the top

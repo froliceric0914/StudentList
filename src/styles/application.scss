@@ -1,52 +1,140 @@
-@import 'studentProfileCard';
-@import 'filterName';
-//change the font-family
-//clean the margin&&padding
+@import url('https://fonts.googleapis.com/css?family=Raleway&display=swap');
+
 * {
-  box-sizing: border-box;
-  margin: 0;
-  padding: 0;
-  font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 body {
-  font-family: 'Roboto Condensed', sans-serif;
-  margin: 0;
-  padding: 100px;
-  color: #244751;
-  background-color: #eee;
-  width: 100%;
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding: 100px;
+
+    background-color: #eee;
+    width: 100%;
 }
 .container-students {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  border: solid grey 1px;
-  border-radius: 5px;
-  width: 600px;
-  height: 600px;
-  overflow: scroll;
-  margin: auto;
-  background-color: white;
-  // position: relative;
-  .search {
-    height: auto;
-    width: 100%;
-    margin: 0.5rem 1rem;
-    padding: 0 0.5rem 0.5rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border: solid rgb(209, 209, 209) 1px;
+    border-radius: 5px;
+    box-shadow: 1px 1px 1px 1px rgb(161, 161, 161);
+    width: 600px;
+    height: 600px;
+    overflow: scroll;
+    margin: auto;
+    background-color: white;
+    .search {
+        width: 100%;
+        margin: 0.5rem 1rem 0;
+        padding: 0 0.5rem 0.5rem 0.5rem;
 
-    .filter {
-      outline: none;
-      width: 100%;
-      font-size: 1.5rem;
-      margin-bottom: 1rem;
-      border: none;
-      border-bottom: solid grey 1px;
+        .filter {
+            outline: none;
+            width: 100%;
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            border: none;
+            border-bottom: solid grey 1px;
+            padding: 0 0 0.5rem 0.5rem;
+            opacity: 0.5;
+        }
+        .filter:focus {
+            opacity: 1;
+            border-bottom: solid black 1px;
+        }
     }
-  }
-  .student-list {
-    width: 100%;
-    height: 100%;
-  }
+    .student-list {
+        width: 100%;
+        height: 100%;
+        .student-card {
+            width: 100%;
+            display: flex;
+            border-bottom: solid rgb(209, 209, 209) 1px;
+            padding: 1rem 0;
+            .student-avatar {
+                width: 25%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: relative;
+                .avatar {
+                    position: absolute;
+                    top: 0;
+                    border: solid rgb(209, 209, 209) 1px;
+                    border-radius: 50%;
+                    width: 70%;
+                    height: auto;
+                    overflow: hidden;
+                    margin: 1rem 0;
+                }
+            }
+            .student-details {
+                width: 70%;
+                height: auto;
+                .userName {
+                    text-transform: uppercase;
+                    margin: 0.5rem;
+                    width: 100%;
+                    font-size: 2rem;
+                    font-weight: 900;
+                    color: black;
+                }
+                .list-detail {
+                    width: 100%;
+                    color: grey;
+                    padding-left: 1.5rem;
+                    .list-grades {
+                        margin-top: 1rem;
+                        .grade {
+                            display: flex;
+                        }
+                    }
+                    .tag-list {
+                        display: flex;
+                        flex-direction: row;
+                        flex-wrap: wrap;
+                        width: 100%;
+                        .newTag {
+                            width: max-content;
+                            min-width: 25%;
+                            background-color: rgb(209, 209, 209);
+                            padding: 0.5rem 1rem;
+                            color: black;
+                            margin: 0.5rem;
+                            border-radius: 5px;
+                        }
+                    }
+                }
+                .input-newTag {
+                    border: none;
+                    outline: none;
+                    border-bottom: solid rgb(209, 209, 209) 1px;
+                    font-size: 1rem;
+                    padding: 0.5rem 0;
+                    margin: 0.5rem;
+                    opacity: 0.5;
+                }
+                .input-newTag:focus {
+                    opacity: 1;
+                    border-bottom: solid black 1px;
+                }
+            }
+            .btn-grade {
+                border: none;
+                position: relative;
+                .icon-grade {
+                    margin: 0.5rem 0;
+                    position: absolute;
+                    color: grey;
+                    font-size: 2rem;
+                    top: 0;
+                    right: 0;
+                }
+            }
+        }
+    }
 }
