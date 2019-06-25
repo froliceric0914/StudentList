@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
 import { StudentsList, Filter } from './component';
-
-//could set a immutable const fetch
-//use componenetDidMount Method
-
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            initialStudents: [], //original
-            students: [], //filtered
-            studentsWithTag: []
+            initialStudents: [], //initialList
+            students: [] //filteredList
         };
     }
 
@@ -21,7 +16,6 @@ class App extends Component {
             .then(res => res.json())
             .then(data => {
                 data.students.map(student => {
-                    // console.log('student: ', student);
                     student.isHidden = false;
                     student.tags = [];
                     this.setState({
@@ -31,13 +25,10 @@ class App extends Component {
                         ]
                     });
                 });
-                //pass the initial state to student
-                //this.state.student is gonna be passed to child component
+                //this.state.student is being passed to child component
                 this.setState({
                     students: this.state.initialStudents
                 });
-                console.log('initalStudents: ', this.state.initialStudents); //it is an array
-                // console.log('students: ', this.state.students);
             });
     }
 
@@ -52,7 +43,7 @@ class App extends Component {
         }));
     };
 
-    //need to change the state of initial student
+    //the new will be added to both initial&&current state of students
     newTag = (idx, newTag) => {
         this.setState(states => ({
             students: states.students.map((student, index) =>
@@ -77,20 +68,20 @@ class App extends Component {
         }));
     };
 
+    //filter the initialStudents and the update the students
     filterList = e => {
         let updatedList = this.state.initialStudents;
         let targetValue = e.target.value.toLowerCase();
-
         updatedList = updatedList.filter(student => {
             return (
                 student.firstName.toLowerCase().search(targetValue) !== -1 ||
                 student.lastName.toLowerCase().search(targetValue) !== -1
             );
         });
-        //filter the initial and the update the student
         this.setState({ students: updatedList });
     };
 
+    // filter the newly added tag list
     filterTag = e => {
         let targetValue = e.target.value;
         let updatedList = this.state.initialStudents.filter(student => {
@@ -103,13 +94,9 @@ class App extends Component {
         return (
             tags.filter(tag => {
                 return tag.toLowerCase().search(targetValue) !== -1;
-
-                // return tag.toLowerCase().search(targetValue) !== -1;
             }).length > 0
         );
     };
-
-    //setState and attach the profile to the top
 
     render() {
         return (

@@ -7,7 +7,6 @@ class Student extends Component {
         super(props);
     }
 
-    //make Tag as a component
     _handleClick = e => {
         e.preventDefault();
         this.props.toggleHidden(this.props.index);
@@ -16,7 +15,6 @@ class Student extends Component {
     _handleChange = e => {
         if (e.key === 'Enter' && e.target.value !== '') {
             const newTag = e.target.value;
-            // console.log('input', e.target.value);
             this.props.newTag(this.props.index, newTag);
             e.target.value = '';
         }
@@ -50,6 +48,7 @@ class Student extends Component {
             );
         };
 
+        //showTag
         let thisTag = tags.map((tag, index) => {
             return (
                 <div className="newTag" key={index}>
@@ -58,6 +57,7 @@ class Student extends Component {
             );
         });
 
+        //showGrades
         let showGrades = grades.map((grade, index) => {
             return (
                 <div className="grade" key={index}>
