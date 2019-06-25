@@ -3,10 +3,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus, faMinus } from '@fortawesome/free-solid-svg-icons';
 
 class Student extends Component {
-    constructor(props) {
-        super(props);
-    }
-
     _handleClick = e => {
         e.preventDefault();
         this.props.toggleHidden(this.props.index);
