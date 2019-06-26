@@ -4,7 +4,12 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 This project is a light student managenet app use to search student by student's infomation. You can either directly find the student profile by name, and meanwhile can add tags to each student and filter by them later.
 
+#### Search by names
+
 ![Search by names](./Docs/search-name.gif)
+
+#### Add and search by tags
+
 ![Add and search by tags](./Docs/search-tag.gif)
 
 In the project directory, you can run:
